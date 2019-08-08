@@ -1,102 +1,134 @@
-<!DOCTYPE html>
 <html>
   <head>
-    <meta charset="utf-8" >
-
-<title>测试 | Gridea</title>
-<meta name="description" content="温故而知新">
-
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-<link rel="shortcut icon" href="https://caedmonjiang.github.io//favicon.ico?v=1565173535998">
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>caedmonjiang.github.io</title>
+<meta name="description" content="温故而知新" />
+<link rel="shortcut icon" href="https://caedmonjiang.github.io//favicon.ico?v=1565228024780">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link href="https://cdn.remixicon.com/releases/v1.3.1/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+
 <link rel="stylesheet" href="https://caedmonjiang.github.io//styles/main.css">
-
-
-
-<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-<script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
-
-<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
 
 
 
   </head>
   <body>
-    <div id="app" class="main">
-
-      <div class="sidebar" :class="{ 'full-height': menuVisible }">
-  <div class="top-container" data-aos="fade-right">
-    <div class="top-header-container">
-      <a class="site-title-container" href="https://caedmonjiang.github.io/">
-        <img src="https://caedmonjiang.github.io//images/avatar.png?v=1565173535998" class="site-logo">
-        <h1 class="site-title">Gridea</h1>
-      </a>
-      <div class="menu-btn" @click="menuVisible = !menuVisible">
-        <div class="line"></div>
+    <div id="app" class="main px-4 flex flex-col lg:flex-row">
+      <div id="sidebar" class="sidebar-wrapper lg:static lg:w-1/4">
+  <div class="lg:sticky top-0">
+    <div class="sidebar-content">
+      <div class="flex lg:block p-4 lg:px-0 items-center fixed lg:static lg:block top-0 right-0 left-0 bg-white z-50">
+        <i class="remixicon-menu-2-line lg:mt-4 text-2xl cursor-pointer animated fadeIn" onclick="openMenu()"></i>
+        <a href="https://caedmonjiang.github.io/">
+          <img class="animated fadeInLeft avatar rounded-lg mx-4 lg:mt-32 lg:mx-0 mt-0 lg:w-24 lg:h-24 w-12 w-12" src="https://caedmonjiang.github.io//images/avatar.png?v=1565228024780" alt="">
+        </a>
+        <h1 class="animated fadeInLeft lg:text-4xl font-extrabold lg:mt-8 mt-0 text-xl" style="animation-delay: 0.2s">caedmonjiang.github.io</h1>
       </div>
-    </div>
-    <div>
       
-        
-          <a href="/" class="site-nav">
-            首页
-          </a>
-        
+        <div class="animated fadeInLeft" style="animation-delay: 0.4s">
+          <p class="my-4 text-gray-600 font-light hidden lg:block">
+            文章目录
+          </p>
+          <div class="toc-container hidden lg:block">
+            <ul class="markdownIt-TOC">
+<li><a href="#%E5%AE%89%E8%A3%85%E6%AD%A5%E9%AA%A4">安装步骤</a>
+<ul>
+<li><a href="#%E4%B8%80-master-%E8%8A%82%E7%82%B9">一、 master 节点</a>
+<ul>
+<li><a href="#11-%E7%A6%81%E7%94%A8%E9%98%B2%E7%81%AB%E5%A2%99-selinux%E5%92%8Cswap">1.1 禁用防火墙、selinux和swap</a></li>
+<li><a href="#12-%E9%85%8D%E7%BD%AE%E5%86%85%E6%A0%B8%E5%8F%82%E6%95%B0%E5%B0%86%E6%A1%A5%E6%8E%A5%E7%9A%84ipv4%E6%B5%81%E9%87%8F%E4%BC%A0%E9%80%92%E5%88%B0iptables%E7%9A%84%E9%93%BE">1.2 配置内核参数，将桥接的IPv4流量传递到iptables的链</a></li>
+<li><a href="#13-%E9%85%8D%E7%BD%AEdocker%E6%BA%90">1.3 配置docker源</a></li>
+<li><a href="#14-%E9%85%8D%E7%BD%AE-kubernetes-%E6%BA%90">1.4 配置 kubernetes 源</a></li>
+<li><a href="#15-%E5%AE%89%E8%A3%85%E7%9B%B8%E5%85%B3%E7%A8%8B%E5%BA%8F%E5%8C%85docker-ce-kubelet-kubeadm-kubectl">1.5 安装相关程序包（docker-ce kubelet kubeadm kubectl）：</a></li>
+<li><a href="#16-%E8%AE%BE%E7%BD%AEdocker%E5%92%8Ckubelet%E5%BC%80%E6%9C%BA%E8%87%AA%E5%90%AF%E5%8A%A8">1.6 设置docker和kubelet开机自启动</a></li>
+<li><a href="#17-%E8%AE%BE%E7%BD%AE-docker-%E9%95%9C%E5%83%8F%E5%8A%A0%E9%80%9F%E5%99%A8">1.7 设置 docker 镜像加速器</a></li>
+<li><a href="#18-%E5%90%AF%E5%8A%A8-kubeadm-%E5%88%9D%E5%A7%8B%E5%8C%96%E5%91%BD%E4%BB%A4">1.8 启动 kubeadm 初始化命令</a></li>
+<li><a href="#19-%E6%A0%B9%E6%8D%AE-kubeadm-%E5%88%9D%E5%A7%8B%E5%8C%96%E5%91%BD%E4%BB%A4%E7%9A%84%E8%BE%93%E5%87%BA%E4%BF%A1%E6%81%AF%E4%B8%AD%E7%9A%84%E6%8F%90%E7%A4%BA%E6%89%A7%E8%A1%8C%E4%BB%A5%E4%B8%8B%E5%91%BD%E4%BB%A4%E9%85%8D%E7%BD%AE-kubectl-%E5%B7%A5%E5%85%B7">1.9 根据 kubeadm 初始化命令的输出信息中的提示，执行以下命令配置 kubectl 工具：</a></li>
+<li><a href="#110-%E6%AD%A4%E6%97%B6%E5%8F%AF%E4%BB%A5%E6%9F%A5%E7%9C%8B%E4%B8%80%E4%BA%9B%E7%8A%B6%E6%80%81">1.10 此时，可以查看一些状态：</a></li>
+<li><a href="#111-%E9%83%A8%E7%BD%B2-flannel-%E7%BD%91%E7%BB%9C">1.11 部署 flannel 网络</a></li>
+</ul>
+</li>
+<li><a href="#%E4%BA%8C-node-%E8%8A%82%E7%82%B9">二、node 节点</a>
+<ul>
+<li><a href="#21-%E7%A6%81%E7%94%A8%E9%98%B2%E7%81%AB%E5%A2%99-selinux%E5%92%8Cswap">2.1 禁用防火墙、selinux和swap</a></li>
+<li><a href="#22-%E9%85%8D%E7%BD%AE%E5%86%85%E6%A0%B8%E5%8F%82%E6%95%B0%E5%B0%86%E6%A1%A5%E6%8E%A5%E7%9A%84ipv4%E6%B5%81%E9%87%8F%E4%BC%A0%E9%80%92%E5%88%B0iptables%E7%9A%84%E9%93%BE">2.2 配置内核参数，将桥接的IPv4流量传递到iptables的链</a></li>
+<li><a href="#23-%E9%85%8D%E7%BD%AEdocker%E6%BA%90">2.3 配置docker源</a></li>
+<li><a href="#24-%E9%85%8D%E7%BD%AE-kubernetes-%E6%BA%90">2.4 配置 kubernetes 源</a></li>
+<li><a href="#25-%E5%AE%89%E8%A3%85%E7%9B%B8%E5%85%B3%E7%A8%8B%E5%BA%8F%E5%8C%85docker-ce-kubelet-kubeadm-kubectl">2.5 安装相关程序包（docker-ce kubelet kubeadm kubectl）：</a></li>
+<li><a href="#26-%E8%AE%BE%E7%BD%AEdocker%E5%92%8Ckubelet%E5%BC%80%E6%9C%BA%E8%87%AA%E5%90%AF%E5%8A%A8">2.6 设置docker和kubelet开机自启动</a></li>
+<li><a href="#27-%E8%AE%BE%E7%BD%AE-docker-%E9%95%9C%E5%83%8F%E5%8A%A0%E9%80%9F%E5%99%A8">2.7 设置 docker 镜像加速器</a></li>
+<li><a href="#28-%E6%89%A7%E8%A1%8C%E5%8A%A0%E5%85%A5-node-%E8%8A%82%E7%82%B9%E7%9A%84%E5%91%BD%E4%BB%A4%E6%AD%A4%E5%A4%84%E7%9A%84-token-%E5%92%8C-sha256-%E5%8F%AF%E5%9C%A8-master-%E4%B8%8A%E6%89%A7%E8%A1%8C-kubeadm-init-%E5%91%BD%E5%90%8D%E5%90%8E%E7%9A%84%E8%BE%93%E5%87%BA%E5%86%85%E5%AE%B9%E4%B8%AD%E5%BE%97%E5%88%B0">2.8 执行加入 node 节点的命令（此处的 token 和 sha256 可在 master 上执行 kubeadm init 命名后的输出内容中得到）：</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#%E4%B8%89-%E4%B8%BA-k8s-%E9%9B%86%E7%BE%A4%E6%96%B0%E5%A2%9E-node-%E8%8A%82%E7%82%B9">三、为 K8S 集群新增 node 节点</a></li>
+<li><a href="#%E5%9B%9B-%E9%83%A8%E7%BD%B2-dashboard">四、部署 Dashboard</a>
+<ul>
+<li><a href="#41-%E5%88%9B%E5%BB%BA-dashboard-%E7%9A%84-yaml-%E6%96%87%E4%BB%B6">4.1 创建 Dashboard 的 yaml 文件</a></li>
+<li><a href="#42-%E4%BF%AE%E6%94%B9-dashboard-%E7%9A%84-yaml-%E6%96%87%E4%BB%B6">4.2 修改 Dashboard 的 yaml 文件</a></li>
+<li><a href="#43-%E9%83%A8%E7%BD%B2-dashboard">4.3 部署 Dashboard</a></li>
+<li><a href="#44-%E6%A3%80%E6%9F%A5-dashboard-%E6%9C%8D%E5%8A%A1%E8%BF%90%E8%A1%8C%E7%8A%B6%E6%80%81">4.4 检查 Dashboard 服务运行状态</a></li>
+<li><a href="#45-%E5%88%9B%E5%BB%BA%E8%B4%A6%E5%8F%B7%E7%99%BB%E9%99%86">4.5 创建账号登陆</a></li>
+<li><a href="#46-%E4%BD%BF%E7%94%A8%E4%B8%8A%E4%B8%80%E6%AD%A5%E5%BE%97%E5%88%B0%E7%9A%84-token-%E7%99%BB%E9%99%86-dashboard">4.6 使用上一步得到的 token 登陆 Dashboard</a></li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
       
-        
-          <a href="/archives" class="site-nav">
-            归档
-          </a>
-        
-      
-        
-          <a href="/tags" class="site-nav">
-            标签
-          </a>
-        
-      
-        
-          <a href="/post/about" class="site-nav">
-            关于
-          </a>
-        
-      
-    </div>
-  </div>
-  <div class="bottom-container" data-aos="flip-up" data-aos-offset="0">
-    <div class="social-container">
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-    </div>
-    <div class="site-description">
-      温故而知新
-    </div>
-    <div class="site-footer">
-      Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://caedmonjiang.github.io//atom.xml" target="_blank">RSS</a>
     </div>
   </div>
 </div>
 
-
-      <div class="main-container">
-        <div class="content-container" data-aos="fade-up">
-          <div class="post-detail">
-            <h2 class="post-title">测试</h2>
-            <div class="post-date">2019-08-07</div>
-            
-            <div class="post-content">
-              <h1 id="安装步骤">安装步骤</h1>
+<div class="menu-container">
+  <i class="remixicon-arrow-left-line text-2xl cursor-pointer animated fadeIn close-menu-btn" onclick="closeMenu()"></i>
+  <div>
+    
+      
+        <a href="/" class="menu" style="animation-delay: 0s">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu" style="animation-delay: 0.2s">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu" style="animation-delay: 0.4s">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu" style="animation-delay: 0.6000000000000001s">
+          关于
+        </a>
+      
+    
+  </div>
+  <div class="site-footer">
+    <div class="py-4 text-gray-700">Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a></div>
+    <a class="rss" href="https://caedmonjiang.github.io//atom.xml" target="_blank">RSS</a>
+  </div>
+</div>
+<div class="mask" onclick="closeMenu()">
+</div>
+      <div class="content-wrapper py-32 lg:p-8 lg:w-3/4 post-detail animated fadeIn">
+        <h1 class="text-3xl font-bold lg:mt-16">测试</h1>
+        <div class="text-sm text-gray-700 lg:my-8">
+          2019-08-07 / 4 min read
+        </div>
+        
+        <div class="post-content yue">
+          <h1 id="安装步骤">安装步骤</h1>
 <h2 id="一-master-节点">一、 master 节点</h2>
 <h3 id="11-禁用防火墙-selinux和swap">1.1 禁用防火墙、selinux和swap</h3>
 <pre><code>systemctl stop firewalld
@@ -316,46 +348,129 @@ kubectl describe secrets -n kube-system $(kubectl -n kube-system get secret | aw
 <p>登陆后即可看到 Dashboard 首页。如下图：<br>
 <img src="leanote://file/getImage?fileId=5d0c73fd690e1a6056000002" alt="首页界面"></p>
 
-            </div>
-            
-            
-              <div class="next-post">
-                <div class="next">下一篇</div>
-                <a href="https://caedmonjiang.github.io//post/hello-gridea">
-                  <h3 class="post-title">
-                    Hello Gridea
-                  </h3>
-                </a>
-              </div>
-            
-
-            
-
-          </div>
-
         </div>
+
+        
+
+
+        <div class="flex justify-between py-8">
+          
+
+          
+            <div class="next-post">
+              <a href="https://caedmonjiang.github.io//post/hello-gridea">
+                <h3 class="post-title">
+                  Hello Gridea
+                  <i class="remixicon-arrow-right-line"></i>
+                </h3>
+              </a>
+            </div>
+          
+        </div>
+
+        
+
       </div>
     </div>
 
-    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script src="/media/prism.js"></script>  
+<script>
 
-<script type="application/javascript">
+Prism.highlightAll()
 
-AOS.init();
+let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
 
-hljs.initHighlightingOnLoad()
+// This should probably be throttled.
+// Especially because it triggers during smooth scrolling.
+// https://lodash.com/docs/4.17.10#throttle
+// You could do like...
+// window.addEventListener("scroll", () => {
+//    _.throttle(doThatStuff, 100);
+// });
+// Only not doing it here to keep this Pen dependency-free.
 
-var app = new Vue({
-  el: '#app',
-  data: {
-    menuVisible: false,
-  },
-})
+window.addEventListener("scroll", event => {
+  let fromTop = window.scrollY;
 
+  mainNavLinks.forEach((link, index) => {
+    let section = document.getElementById(decodeURI(link.hash).substring(1));
+    let nextSection = null
+    if (mainNavLinks[index + 1]) {
+      nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+    }
+    if (section.offsetTop <= fromTop) {
+      if (nextSection) {
+        if (nextSection.offsetTop > fromTop) {
+          link.classList.add("current");
+        } else {
+          link.classList.remove("current");    
+        }
+      } else {
+        link.classList.add("current");
+      }
+    } else {
+      link.classList.remove("current");
+    }
+  });
+});
+
+
+document.addEventListener("DOMContentLoaded", function() {
+  var lazyImages = [].slice.call(document.querySelectorAll(".post-feature-image.lazy"));
+
+  if ("IntersectionObserver" in window) {
+    let lazyImageObserver = new IntersectionObserver(function(entries, observer) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          let lazyImage = entry.target
+          lazyImage.style.backgroundImage = `url(${lazyImage.dataset.bg})`
+          lazyImage.classList.remove("lazy")
+          lazyImageObserver.unobserve(lazyImage)
+        }
+      });
+    });
+
+    lazyImages.forEach(function(lazyImage) {
+      lazyImageObserver.observe(lazyImage)
+    })
+  } else {
+    // Possibly fall back to a more compatible method here
+  }
+});
+
+const menuContainer = document.querySelector('.menu-container')
+const menus = document.querySelectorAll('.menu-container .menu')
+const mask = document.querySelector('.mask')
+const contentWrapper = document.querySelector('.content-wrapper')
+const latestArticle = document.querySelector('.latest-article')
+const readMore = document.querySelector('.read-more')
+const indexPage = document.querySelector('.index-page')
+
+const isHome = location.pathname === '/'
+if (latestArticle) {
+  latestArticle.style.display = isHome ? 'block' : 'none'
+  readMore.style.display = isHome ? 'block' : 'none'
+  indexPage.style.display = isHome ? 'none' : 'block'
+}
+
+const openMenu = () => {
+  menuContainer.classList.add('open')
+  menus.forEach(menu => {
+    menu.classList.add('animated', 'fadeInLeft')
+  })
+  mask.classList.add('open')
+  contentWrapper.classList.add('is-second')
+}
+
+const closeMenu = () => {
+  menuContainer.classList.remove('open')
+  menus.forEach(menu => {
+    menu.classList.remove('animated', 'fadeInLeft')
+  })
+  mask.classList.remove('open')
+  contentWrapper.classList.remove('is-second')
+}
 </script>
-
-
-
-
+  
   </body>
 </html>
