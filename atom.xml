@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://caedmonjiang.github.io/</id>
     <title>caedmon</title>
-    <updated>2019-08-08T02:14:36.687Z</updated>
+    <updated>2019-08-08T03:01:35.294Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://caedmonjiang.github.io/"/>
     <link rel="self" href="https://caedmonjiang.github.io//atom.xml"/>
@@ -16,7 +16,12 @@
         <link href="https://caedmonjiang.github.io//post/ce-shi1">
         </link>
         <updated>2019-08-07T06:13:03.000Z</updated>
-        <content type="html"><![CDATA[<h2 id="一-master-节点">一、 master 节点</h2>
+        <content type="html"><![CDATA[<hr>
+<h2 id="title-k8s-集群安装步骤brtags-k8s">title: K8S 集群安装步骤<br>
+<br/><br>
+tags: k8s</h2>
+<h1 id="安装步骤">安装步骤</h1>
+<h2 id="一-master-节点">一、 master 节点</h2>
 <h3 id="11-禁用防火墙-selinux和swap">1.1 禁用防火墙、selinux和swap</h3>
 <pre><code>systemctl stop firewalld
 systemctl disable firewalld
@@ -231,9 +236,9 @@ kubectl create clusterrolebinding  dashboard-admin --clusterrole=cluster-admin -
 kubectl describe secrets -n kube-system $(kubectl -n kube-system get secret | awk '/dashboard-admin/{print $1}')
 </code></pre>
 <h2 id="46-使用上一步得到的-token-登陆-dashboard">4.6 使用上一步得到的 token 登陆 Dashboard</h2>
-<p><img src="leanote://file/getImage?fileId=5d0c737b690e1a6056000001" alt="登陆界面"></p>
+<p><img src="https://gitee.com/caedmon/pics/raw/master/%E5%B0%8F%E4%B9%A6%E5%8C%A0/2019/8/K8S_%E9%9B%86%E7%BE%A4%E5%AE%89%E8%A3%85%E6%AD%A5%E9%AA%A4%3C_br%3E-1565233207005.png" alt="登录界面"></p>
 <p>登陆后即可看到 Dashboard 首页。如下图：<br>
-<img src="leanote://file/getImage?fileId=5d0c73fd690e1a6056000002" alt="首页界面"></p>
+<img src="https://gitee.com/caedmon/pics/raw/master/%E5%B0%8F%E4%B9%A6%E5%8C%A0/2019/8/K8S_%E9%9B%86%E7%BE%A4%E5%AE%89%E8%A3%85%E6%AD%A5%E9%AA%A4%3C_br%3E-1565233230314.png" alt="首页界面"></p>
 ]]></content>
     </entry>
 </feed>
