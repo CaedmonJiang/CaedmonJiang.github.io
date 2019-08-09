@@ -30,30 +30,29 @@
       
         <div class="animated fadeInLeft" style="animation-delay: 0.4s">
           <p class="my-4 text-gray-600 font-light hidden lg:block">
-            温故而知新
+            文章目录
           </p>
-          <div class="animated fadeInLeft social-container hidden lg:block" style="animation-delay: 0.6s">
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
+          <div class="toc-container hidden lg:block">
+            <ul class="markdownIt-TOC">
+<li><a href="#%E5%91%BD%E4%BB%A4%E4%BB%8B%E7%BB%8D">命令介绍</a>
+<ul>
+<li><a href="#saveload">save/load</a>
+<ul>
+<li><a href="#save">save</a></li>
+<li><a href="#load">load</a></li>
+</ul>
+</li>
+<li><a href="#exportimport">export/import</a>
+<ul>
+<li><a href="#export">export</a></li>
+<li><a href="#import">import</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#saveload-%E4%B8%8E-exportimport-%E7%9A%84%E5%8C%BA%E5%88%AB">save/load 与 export/import 的区别</a></li>
+</ul>
+
           </div>
         </div>
       
@@ -97,18 +96,96 @@
 </div>
 <div class="mask" onclick="closeMenu()">
 </div>
-      <div class="content-wrapper py-32 lg:p-8 lg:w-3/4">
-        <h2 class="text-lg text-gray-700 mb-8">
-          <i class="remixicon-bookmark-2-line"></i> 标签云
-        </h2>
-        <div class="tags-container">
+      <div class="content-wrapper py-32 lg:p-8 lg:w-3/4 post-detail animated fadeIn">
+        <h1 class="text-3xl font-bold lg:mt-16">Docker的导入导出</h1>
+        <div class="text-sm text-gray-700 lg:my-8">
+          2019-08-09 / 1 min read
+        </div>
+        
+        <div class="post-content yue">
+          <h1 id="命令介绍">命令介绍</h1>
+<p>涉及的命令有 save/load， export/import</p>
+<h2 id="saveload">save/load</h2>
+<h3 id="save">save</h3>
+<p>命令：<code>docker save [options] images [images...]</code><br>
+示例：</p>
+<pre><code class="language-sh">#  -o 表示输出到文件, java8.tar 为目标文件, java8:latest 为镜像名称
+docker save -o java8.tar java8:latest
+</code></pre>
+<h3 id="load">load</h3>
+<p>命令：<code>docker load [options]</code><br>
+示例：</p>
+<pre><code class="language-sh"># -i 表示输入文件
+docker load -i java8.tar
+</code></pre>
+<h2 id="exportimport">export/import</h2>
+<h3 id="export">export</h3>
+<p>命令：<code>docker export [options] container</code><br>
+示例：</p>
+<pre><code class="language-sh"># -o 表示输出文件，container.tar为目标文件，container是容器名
+docker export -o container.tar container
+</code></pre>
+<h3 id="import">import</h3>
+<p>命令：<code>docker import [options] file|URL|- [REPOSITORY[:TAG]]</code><br>
+示例：</p>
+<pre><code class="language-sh">docker import container.tar container:import
+</code></pre>
+<h1 id="saveload-与-exportimport-的区别">save/load 与 export/import 的区别</h1>
+<p>save/load 是针对镜像的操作，export/import 是针对容器的操作</p>
+<p>如果只是要备份镜像，使用 save/load  比较合适；如果是要备份已经启动起来的容器，则应该使用 export/import 命令。</p>
+
+        </div>
+
+        
+          <a class="animated fadeInUp p-2 items-center text-sm text-gray-700 border hover:bg-gray-300 leading-none rounded-full flex lg:inline-flex m-4 " href="https://caedmonjiang.github.io//tag/DhNW8JMUx">
+            <span class="flex-auto">docker</span>
+          </a>
+        
+
+
+        <div class="flex justify-between py-8">
           
-            <a class="animated fadeInUp p-2 items-center text-sm text-gray-700 border hover:bg-gray-300 leading-none rounded-full flex lg:inline-flex m-4 " href="https://caedmonjiang.github.io//tag/DhNW8JMUx" :style="{ 'animation-delay': `${0 * 0.2}s` }">
-              <span class="flex-auto">docker</span>
-              <span class="flex rounded-full bg-gray-200 px-2 py-1 text-xs ml-1">1</span>
-            </a>
+
+          
+            <div class="next-post">
+              <a href="https://caedmonjiang.github.io//post/ce-shi1">
+                <h3 class="post-title">
+                  K8S安装步骤
+                  <i class="remixicon-arrow-right-line"></i>
+                </h3>
+              </a>
+            </div>
           
         </div>
+
+        
+          
+            <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+
+<div id="gitalk-container"></div>
+
+<script>
+
+  var gitalk = new Gitalk({
+    clientID: '8711f03afc9facae9797',
+    clientSecret: '141fdcfc88d171718788020005c869313bc24930',
+    repo: 'caedmonjiang.github.io',
+    owner: 'caedmonjiang',
+    admin: ['caedmonjiang'],
+    id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+    distractionFreeMode: false  // Facebook-like distraction free mode
+  })
+
+  gitalk.render('gitalk-container')
+
+</script>
+
+          
+
+          
+        
+
       </div>
     </div>
 

@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://caedmonjiang.github.io/</id>
     <title>caedmon</title>
-    <updated>2019-08-08T03:03:27.934Z</updated>
+    <updated>2019-08-09T01:15:32.678Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://caedmonjiang.github.io/"/>
     <link rel="self" href="https://caedmonjiang.github.io//atom.xml"/>
@@ -10,6 +10,44 @@
     <logo>https://caedmonjiang.github.io//images/avatar.png</logo>
     <icon>https://caedmonjiang.github.io//favicon.ico</icon>
     <rights>All rights reserved 2019, caedmon</rights>
+    <entry>
+        <title type="html"><![CDATA[Docker的导入导出]]></title>
+        <id>https://caedmonjiang.github.io//post/docker-de-dao-ru-dao-chu</id>
+        <link href="https://caedmonjiang.github.io//post/docker-de-dao-ru-dao-chu">
+        </link>
+        <updated>2019-08-09T01:14:19.000Z</updated>
+        <content type="html"><![CDATA[<h1 id="命令介绍">命令介绍</h1>
+<p>涉及的命令有 save/load， export/import</p>
+<h2 id="saveload">save/load</h2>
+<h3 id="save">save</h3>
+<p>命令：<code>docker save [options] images [images...]</code><br>
+示例：</p>
+<pre><code class="language-sh">#  -o 表示输出到文件, java8.tar 为目标文件, java8:latest 为镜像名称
+docker save -o java8.tar java8:latest
+</code></pre>
+<h3 id="load">load</h3>
+<p>命令：<code>docker load [options]</code><br>
+示例：</p>
+<pre><code class="language-sh"># -i 表示输入文件
+docker load -i java8.tar
+</code></pre>
+<h2 id="exportimport">export/import</h2>
+<h3 id="export">export</h3>
+<p>命令：<code>docker export [options] container</code><br>
+示例：</p>
+<pre><code class="language-sh"># -o 表示输出文件，container.tar为目标文件，container是容器名
+docker export -o container.tar container
+</code></pre>
+<h3 id="import">import</h3>
+<p>命令：<code>docker import [options] file|URL|- [REPOSITORY[:TAG]]</code><br>
+示例：</p>
+<pre><code class="language-sh">docker import container.tar container:import
+</code></pre>
+<h1 id="saveload-与-exportimport-的区别">save/load 与 export/import 的区别</h1>
+<p>save/load 是针对镜像的操作，export/import 是针对容器的操作</p>
+<p>如果只是要备份镜像，使用 save/load  比较合适；如果是要备份已经启动起来的容器，则应该使用 export/import 命令。</p>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[K8S安装步骤]]></title>
         <id>https://caedmonjiang.github.io//post/ce-shi1</id>
