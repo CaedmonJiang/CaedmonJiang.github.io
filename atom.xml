@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://caedmonjiang.github.io/</id>
     <title>caedmon</title>
-    <updated>2019-08-09T01:15:53.142Z</updated>
+    <updated>2019-08-09T05:04:05.896Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://caedmonjiang.github.io/"/>
     <link rel="self" href="https://caedmonjiang.github.io//atom.xml"/>
@@ -10,6 +10,114 @@
     <logo>https://caedmonjiang.github.io//images/avatar.png</logo>
     <icon>https://caedmonjiang.github.io//favicon.ico</icon>
     <rights>All rights reserved 2019, caedmon</rights>
+    <entry>
+        <title type="html"><![CDATA[docker 设置 http 方式登录私有镜像仓库]]></title>
+        <id>https://caedmonjiang.github.io//post/docker-she-zhi-http-fang-shi-deng-lu-si-you-jing-xiang-cang-ku</id>
+        <link href="https://caedmonjiang.github.io//post/docker-she-zhi-http-fang-shi-deng-lu-si-you-jing-xiang-cang-ku">
+        </link>
+        <updated>2019-08-09T05:03:35.000Z</updated>
+        <content type="html"><![CDATA[<h3 id="找到-dockerservice-文件的位置">找到 docker.service 文件的位置</h3>
+<p>执行命令  <code>systemctl status docker</code>  ，得到如下输出</p>
+<pre><code class="language-bash">● docker.service - Docker Application Container Engine
+   Loaded: loaded (/usr/lib/systemd/system/docker.service; enabled; vendor preset: disabled)
+   Active: active (running) since 四 2019-08-08 17:03:09 CST; 19h ago
+     Docs: https://docs.docker.com
+ Main PID: 21551 (dockerd)
+    Tasks: 39
+   Memory: 69.9M
+   CGroup: /system.slice/docker.service
+           └─21551 /usr/bin/dockerd -H fd:// --containerd=/run/containerd/containerd.sock --insecure-registry=47.97.211.201:8082
+</code></pre>
+<p>其中， Loaded 一项便指明了 docker.service 文件的位置</p>
+<h3 id="编辑-dockerservice">编辑 docker.service</h3>
+<p>编辑 docker.service，在 ExecStart 后添加 --insecure-registry 参数，代码片段如下：</p>
+<pre><code>[Service]
+Type=notify
+ExecStart=/usr/bin/dockerd -H fd:// --containerd=/run/containerd/containerd.sock --insecure-registry=192.168.0.100:8001
+ExecReload=/bin/kill -s HUP $MAINPID
+TimeoutSec=0
+RestartSec=2
+Restart=always
+</code></pre>
+<h3 id="重启-docker-服务">重启 docker 服务</h3>
+<pre><code class="language-sh">systemctl daemon-reload
+systemctl restart docker
+</code></pre>
+<h3 id="登陆私有仓库">登陆私有仓库</h3>
+<p>命令为： <code>docker login [私有仓库 IP 或 域名]</code></p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[K8S拉取私有仓库的镜像]]></title>
+        <id>https://caedmonjiang.github.io//post/k8s-la-qu-si-you-cang-ku-de-jing-xiang</id>
+        <link href="https://caedmonjiang.github.io//post/k8s-la-qu-si-you-cang-ku-de-jing-xiang">
+        </link>
+        <updated>2019-08-09T04:50:32.000Z</updated>
+        <content type="html"><![CDATA[<p>本解决方案通过 k8s 的 secret 实现。只需要在 k8s 的 master 节点上配置好即可。</p>
+<h3 id="步骤1">步骤1</h3>
+<p>在 k8s 的 master 节点上通过 docker login 登陆私有仓库。登陆成功后，会在当前用户的家目录下生成一个文件，路径为：<code>~/.docker/config.json</code>，内容大概如下：</p>
+<pre><code class="language-json">{
+	&quot;auths&quot;: {
+		&quot;192.168.0.100:8001&quot;: {
+			&quot;auth&quot;: &quot;eW357WRhdGFoeHlkJJWNWm0yMVgwWmpUSWlDUzI=&quot;
+		}
+	},
+	&quot;HttpHeaders&quot;: {
+		&quot;User-Agent&quot;: &quot;Docker-Client/19.03.1 (linux)&quot;
+	}
+}
+</code></pre>
+<p>这个文件包含了私有仓库的认证信息。</p>
+<h4 id="注意事项">注意事项</h4>
+<p>如果是私有仓库使用的是 http 协议，则在 k8s 中的所有节点上做允许 docker 使用 http 协议登陆镜像仓库的设置。</p>
+<h3 id="步骤2">步骤2</h3>
+<p>将 config.json 文件内容转换成 base64 编码的字符串。执行以下命令即可：</p>
+<pre><code class="language-sh">cat ~/.docker/config.json | base64 -w 0
+</code></pre>
+<h3 id="步骤3">步骤3</h3>
+<p>创建 k8s 的 secret 配置文件 hubor-secret.yml，内容如下：</p>
+<pre><code class="language-yaml">apiVersion: v1
+kind: Secret
+metadata:
+  name: hubor-secret
+  namespace: default
+type: kubernetes.io/dockerconfigjson
+data:
+  .dockerconfigjson: ewoJImF1dGhzIjogewoJCSI0Ny45Ny4yMTEuMjAxOjgwODIiOiB7CgkJCSJhdXRoIjogImVXOTFaV1JoZEdGb2VIbGtPaKMOKW0weU1WZ3dXbXBVU1dsRFV6ST0iCgkJfQoJfSwKCSJIdHRwSGVhZGVycyI6IHsKCQkiVXNlci1BZ2VudCI6ICJEb2NrZXItQ2xpZW50LzE5LjAzLjEgKGxpbnV4KSIKCX0KfQ==
+</code></pre>
+<p>其中，<code>.dockerconfigjson</code> 的值为上一步中得到的 base64 编码字符串</p>
+<p>执行如下命令，创建 k8s 中的 secret</p>
+<pre><code class="language-sh">kubectl apply -f hubor-secret.yml
+</code></pre>
+<p>至此，k8s 中的配置工作算是结束了。接下来只需要在部署应用容器的时候，在配置中指定 imagePullSecrets 便可从私有仓库拉取镜像。</p>
+<h3 id="步骤四">步骤四</h3>
+<p>在部署应用时，在配置文件中指定 imagePullSecrets，如下示例：</p>
+<pre><code class="language-yml">apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: test
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: test
+  template:
+    metadata:
+      labels:
+        app: test
+    spec:
+      containers:
+        - name: test
+          image: 192.168.0.100:8001/test:latest
+          imagePullPolicy: Always
+      imagePullSecrets:
+        - name: hubor-secret
+</code></pre>
+<p>完结。</p>
+<p>附上官方文档：https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/</p>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[Docker的导入导出]]></title>
         <id>https://caedmonjiang.github.io//post/docker-de-dao-ru-dao-chu</id>
@@ -50,8 +158,8 @@ docker export -o container.tar container
     </entry>
     <entry>
         <title type="html"><![CDATA[K8S安装步骤]]></title>
-        <id>https://caedmonjiang.github.io//post/ce-shi1</id>
-        <link href="https://caedmonjiang.github.io//post/ce-shi1">
+        <id>https://caedmonjiang.github.io//post/k8s-an-zhuang-bu-zhou</id>
+        <link href="https://caedmonjiang.github.io//post/k8s-an-zhuang-bu-zhou">
         </link>
         <updated>2019-08-07T06:13:03.000Z</updated>
         <content type="html"><![CDATA[<h1 id="安装步骤">安装步骤</h1>
@@ -262,7 +370,7 @@ sed -i '/targetPort:/a\ \ \ \ \ \ nodePort: 30001\n\ \ type: NodePort' kubernete
 kubectl get pods -n kube-system -o wide
 kubectl get services -n kube-system
 </code></pre>
-<p>在浏览器中访问 Dashboard ： https:192.168.1.8:30001<br>
+<p>在浏览器中访问 Dashboard ： https://192.168.1.8:30001<br>
 注意： 是 https !</p>
 <h2 id="45-创建账号登陆">4.5 创建账号登陆</h2>
 <pre><code>kubectl create serviceaccount  dashboard-admin -n kube-system
