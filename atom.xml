@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://caedmonjiang.github.io/</id>
     <title>caedmon</title>
-    <updated>2019-08-10T09:02:14.992Z</updated>
+    <updated>2019-08-12T06:10:40.948Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://caedmonjiang.github.io/"/>
     <link rel="self" href="https://caedmonjiang.github.io//atom.xml"/>
@@ -10,37 +10,6 @@
     <logo>https://caedmonjiang.github.io//images/avatar.png</logo>
     <icon>https://caedmonjiang.github.io//favicon.ico</icon>
     <rights>All rights reserved 2019, caedmon</rights>
-    <entry>
-        <title type="html"><![CDATA[分布式事务教程笔记]]></title>
-        <id>https://caedmonjiang.github.io//post/fen-bu-shi-shi-wu-jiao-cheng-bi-ji</id>
-        <link href="https://caedmonjiang.github.io//post/fen-bu-shi-shi-wu-jiao-cheng-bi-ji">
-        </link>
-        <updated>2019-08-10T09:01:59.000Z</updated>
-        <content type="html"><![CDATA[<h1 id="分布式事务解决方案">分布式事务解决方案</h1>
-<ul>
-<li>可靠消息最终一致性方案</li>
-<li>TCC 方案</li>
-<li>最大努力通知型方案</li>
-</ul>
-<h1 id="事务">事务</h1>
-<p>由一组操作构成的可靠、独立的工作单元</p>
-<p>事务的 ACID</p>
-<ul>
-<li>Atomicity （原子性）</li>
-<li>Consistency（一致性）</li>
-<li>Isolation（隔离性）</li>
-<li>Durability（持久性）</li>
-</ul>
-<h2 id="本地事务">本地事务</h2>
-<p><img src="https://gitee.com/caedmon/pics/raw/master/%E5%B0%8F%E4%B9%A6%E5%8C%A0/2019/8/%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1%E6%95%99%E7%A8%8B%E7%AC%94%E8%AE%B0-1565426226190.png" alt="本地事务"></p>
-<h2 id="全局事务dtp模型-标准分布式事务">全局事务（DTP模型）--标准分布式事务</h2>
-<p><img src="https://gitee.com/caedmon/pics/raw/master/%E5%B0%8F%E4%B9%A6%E5%8C%A0/2019/8/%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1%E6%95%99%E7%A8%8B%E7%AC%94%E8%AE%B0-1565426515706.png" alt="全局事务标准"></p>
-<h2 id="全局事务dtp模型-xa">全局事务（DTP模型）--XA</h2>
-<p><img src="https://gitee.com/caedmon/pics/raw/master/%E5%B0%8F%E4%B9%A6%E5%8C%A0/2019/8/%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1%E6%95%99%E7%A8%8B%E7%AC%94%E8%AE%B0-1565427605040.png" alt="全局事务XA"></p>
-<h2 id="两阶段提交two-phase-commit">两阶段提交（Two Phase Commit）</h2>
-<p><img src="https://gitee.com/caedmon/pics/raw/master/%E5%B0%8F%E4%B9%A6%E5%8C%A0/2019/8/%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1%E6%95%99%E7%A8%8B%E7%AC%94%E8%AE%B0-1565426775713.png" alt="两阶段提交"></p>
-]]></content>
-    </entry>
     <entry>
         <title type="html"><![CDATA[docker 设置 http 方式登录私有镜像仓库]]></title>
         <id>https://caedmonjiang.github.io//post/docker-she-zhi-http-fang-shi-deng-lu-si-you-jing-xiang-cang-ku</id>
